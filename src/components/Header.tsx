@@ -11,13 +11,16 @@ type Props = { logoUrl: string | null; liveUrl: string | null };
 function Brand({ logoUrl }: { logoUrl: string | null }) {
   return (
     <Link href="/" className="brand-link" aria-label="Iglesia Los Productores, inicio">
-      {logoUrl ? (
-        // El logo lo sube Comunicaciones desde el panel; puede tener cualquier proporción.
+      {logoUrl && (
+        // El logo puede cambiarse desde el panel; puede tener cualquier proporción.
         // eslint-disable-next-line @next/next/no-img-element
         <img src={logoUrl} alt="" className="brand-logo" />
-      ) : (
-        <span className="brand-name">los productores</span>
       )}
+      <span className="brand-name">
+        Iglesia
+        <br />
+        Los Productores
+      </span>
     </Link>
   );
 }

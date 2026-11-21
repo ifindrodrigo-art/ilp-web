@@ -15,13 +15,13 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "flex-end",
           padding: 80,
-          background: "#FCF0F3",
-          color: "#333333",
+          background: "#FFFFFF",
+          color: "#0E0E10",
         }}
       >
-        <div style={{ fontSize: 28, color: "#C81E2A", marginBottom: 24, letterSpacing: 3, textTransform: "uppercase" }}>Ate Vitarte, Lima · Asambleas de Dios del Perú</div>
-        <div style={{ fontSize: 96, color: "#333333", lineHeight: 0.95, letterSpacing: -3 }}>Iglesia Los Productores</div>
-        <div style={{ fontSize: 40, color: "#ED2E38", marginTop: 28 }}>¡Más que una iglesia, una familia!</div>
+        <div style={{ fontSize: 28, color: "#13264F", marginBottom: 24, letterSpacing: 3, textTransform: "uppercase" }}>Ate Vitarte, Lima · Asambleas de Dios del Perú</div>
+        <div style={{ fontSize: 96, color: "#0E0E10", lineHeight: 0.95, letterSpacing: -3 }}>Iglesia Los Productores</div>
+        <div style={{ fontSize: 40, color: "#13264F", marginTop: 28 }}>¡Más que una iglesia, una familia!</div>
       </div>
     ),
     size,

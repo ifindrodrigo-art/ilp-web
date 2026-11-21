@@ -91,7 +91,7 @@ export default function Submissions({ sb, onCount }: { sb: SupabaseClient; onCou
                 <div className="stack" style={{ gap: 6, flex: "1 1 360px", minWidth: 0 }}>
                   <div className="btn-row" style={{ gap: 8, alignItems: "center" }}>
                     <span className="chip">{r.kind === "nuevo" ? "Soy nuevo" : "Oración"}</span>
-                    {r.status === "nuevo" && <span className="chip" style={{ color: "var(--red-ink)", borderColor: "var(--red)" }}>Por atender</span>}
+                    {r.status === "nuevo" && <span className="chip" style={{ color: "var(--accent)", borderColor: "var(--accent)" }}>Por atender</span>}
                     {r.wants_contact && <span className="chip">Quiere que lo contacten</span>}
                     <span className="label" style={{ fontWeight: 400 }}>{when(r.created_at)}</span>
                   </div>

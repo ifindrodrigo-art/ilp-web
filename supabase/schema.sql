@@ -235,7 +235,7 @@ create policy "media: admin borra" on storage.objects for delete to authenticate
   using (bucket_id = 'media' and public.is_admin());
 
 -- ---------- Contenido inicial (datos públicos de la iglesia, 15/11/2026) ----------
-insert into public.settings (id, whatsapp, email, logo_url, hero_image_url, welcome_image_url, live_url, youtube_url, instagram_url, facebook_url, tiktok_url, address, address_reference, maps_url, vision, mission, beliefs, first_visit) values (1, null, null, null, null, null, 'https://www.facebook.com/iglesiaproductores', 'https://www.youtube.com/@IglesiaLosProductores', 'https://www.instagram.com/iglesialosproductores', 'https://www.facebook.com/iglesiaproductores', 'https://www.tiktok.com/@iglesialosproductores', 'Calle Arequipa 303, Tilda, Ate Vitarte, Lima', 'A espaldas del grifo Petroperú, al lado de la nueva SUNAT.', 'https://maps.app.goo.gl/thrET51JXLkCqAsK6', null, null, null, null);
+insert into public.settings (id, whatsapp, email, logo_url, hero_image_url, welcome_image_url, live_url, youtube_url, instagram_url, facebook_url, tiktok_url, address, address_reference, maps_url, vision, mission, beliefs, first_visit) values (1, null, null, '/logo.png', '/fotos/portada.webp', '/fotos/familia-abrazo.webp', 'https://www.facebook.com/iglesiaproductores', 'https://www.youtube.com/@IglesiaLosProductores', 'https://www.instagram.com/iglesialosproductores', 'https://www.facebook.com/iglesiaproductores', 'https://www.tiktok.com/@iglesialosproductores', 'Calle Arequipa 303, Tilda, Ate Vitarte, Lima', 'A espaldas del grifo Petroperú, al lado de la nueva SUNAT.', 'https://maps.app.goo.gl/thrET51JXLkCqAsK6', null, null, null, null);
 
 insert into public.schedules (day, start_time, end_time, name, recurrence, note, sort, active) values
   (2, '19:00', null, 'Culto de oración', 'weekly', null, 1, true),
@@ -253,14 +253,32 @@ insert into public.events (title, starts_on, ends_on, date_confirmed, time_text,
 insert into public.ministries (slug, name, audience, tagline, description, schedule_text, instagram, image_url, sort, published) values
   ('ninos', 'Misión Infantil', 'Niños', 'Encaminando una nueva generación', 'El ministerio de los niños de la iglesia. Cada verano tenemos la Escuela Bíblica de Vacaciones (EBDV); en agosto o septiembre, el Festi Kids; y durante el año, la dedicación de niños y el Escuadrón de Oración infantil.', null, 'mininfantil_productores', null, 1, true),
   ('teens', 'Xtreme Teens', 'Adolescentes', null, 'El ministerio de adolescentes, desde 2021, a cargo del pastor David. Estudiamos personajes de la Biblia, tenemos un campamento cada febrero y un congreso cada año. Al crecer, los teens pasan a Jóvenes.', 'Sábados, 3:00 p.m.', 'xtreme_teens_lp', null, 2, true),
-  ('jovenes', 'Misión Juvenil', 'Jóvenes', 'Hay un lugar para ti', 'Los jóvenes de la iglesia. Nos reunimos cada sábado, salimos a evangelizar por la zona y cada octubre hacemos nuestro congreso juvenil, además de la adoración pública ¡Que Resuene!', 'Sábados, 7:00 p.m.', 'mjproductores', null, 3, true),
-  ('alabanza', 'ILP Music', 'Alabanza', null, 'La banda de alabanza de la iglesia, lanzada en diciembre de 2025. Toca en los congresos de la iglesia.', null, 'ilp.music', null, 4, true),
-  ('damas', 'Ministerio con Damas', 'Damas', null, 'Las mujeres de la iglesia, organizadas en grupos. Cada mayo realizamos el Congreso de Damas, que en 2026 llegó a su edición número 16.', null, null, null, 5, true),
+  ('jovenes', 'Misión Juvenil', 'Jóvenes', 'Hay un lugar para ti', 'Los jóvenes de la iglesia. Nos reunimos cada sábado, salimos a evangelizar por la zona y cada octubre hacemos nuestro congreso juvenil, además de la adoración pública ¡Que Resuene!', 'Sábados, 7:00 p.m.', 'mjproductores', '/fotos/jovenes-oracion.webp', 3, true),
+  ('alabanza', 'ILP Music', 'Alabanza', null, 'La banda de alabanza de la iglesia, lanzada en diciembre de 2025. Toca en los congresos de la iglesia.', null, 'ilp.music', '/fotos/alabanza-voz.webp', 4, true),
+  ('damas', 'Ministerio con Damas', 'Damas', null, 'Las mujeres de la iglesia, organizadas en grupos. Cada mayo realizamos el Congreso de Damas, que en 2026 llegó a su edición número 16.', null, null, '/fotos/damas.webp', 5, true),
   ('varones', 'Hombres inquebrantables', 'Varones', 'Al servicio de Dios', 'El ministerio de varones nació en 2022. Cada año tenemos un congreso de varones, y en 2026 hicimos nuestro primer campamento.', null, null, null, 6, true),
-  ('familia', 'Ministerio de la Familia', 'Familias', null, 'Charlas para padres, cena matrimonial y, cada noviembre desde 2019, el Congreso de la Familia.', null, null, null, 7, true),
+  ('familia', 'Ministerio de la Familia', 'Familias', null, 'Charlas para padres, cena matrimonial y, cada noviembre desde 2019, el Congreso de la Familia.', null, null, '/fotos/familia-pareja.webp', 7, true),
   ('misiones', 'Sembrando Esperanza', 'Misiones', null, 'El ministerio de misiones: viajes misioneros, campañas de ayuda social y salidas a evangelizar por las calles un martes al mes.', null, null, null, 8, true),
-  ('oracion', 'Oración e intercesión', 'Toda la iglesia', null, 'Cada martes nos reunimos a orar. En octubre realizamos el Congreso de Intercesión, además de vigilias y noches de clamor durante el año.', 'Martes, 7:00 p.m.', null, null, 9, true);
+  ('oracion', 'Oración e intercesión', 'Toda la iglesia', null, 'Cada martes nos reunimos a orar. En octubre realizamos el Congreso de Intercesión, además de vigilias y noches de clamor durante el año.', 'Martes, 7:00 p.m.', null, '/fotos/oracion-hermana.webp', 9, true);
 
 insert into public.team (name, role, bio, image_url, sort, published) values
   ('Ramiro Mauricio', 'Pastor principal', null, null, 1, false),
   ('July Valenzuela', 'Pastora principal', null, null, 2, false);
+
+insert into public.gallery (image_url, caption, album, taken_on, sort, published) values
+  ('/fotos/alabanza-voz.webp', 'Alabanza en el Congreso de la Familia', 'Congreso de la Familia 2026', null, 1, true),
+  ('/fotos/familia-abrazo.webp', 'Abrazo durante el congreso, con el lema "Yo y mi casa serviremos al Señor"', 'Congreso de la Familia 2026', null, 2, true),
+  ('/fotos/oracion-congregacion.webp', 'La congregación en oración', 'Congreso de la Familia 2026', null, 3, true),
+  ('/fotos/alabanza-bajo.webp', 'Bajista del equipo de alabanza', 'Congreso de la Familia 2026', null, 4, true),
+  ('/fotos/predicador.webp', 'Predicación en el congreso', 'Congreso de la Familia 2026', null, 5, true),
+  ('/fotos/familia-pareja.webp', 'Una pareja abrazada durante el culto', 'Congreso de la Familia 2026', null, 6, true),
+  ('/fotos/adoracion-congregacion.webp', 'Adoración con las manos en alto frente al escenario', 'Congreso de la Familia 2026', null, 7, true),
+  ('/fotos/alabanza-teclado.webp', 'Teclado y batería en la alabanza', 'Congreso de la Familia 2026', null, 8, true),
+  ('/fotos/oracion-hermana.webp', 'Una hermana orando', 'Congreso de la Familia 2026', null, 9, true),
+  ('/fotos/adoracion-voz.webp', 'Voz principal de la alabanza', 'Congreso de la Familia 2026', null, 10, true),
+  ('/fotos/jovenes-oracion.webp', 'Un joven en oración', 'Congreso de la Familia 2026', null, 11, true),
+  ('/fotos/oracion-abrazo.webp', 'Hermanos abrazados orando juntos', 'Congreso de la Familia 2026', null, 12, true),
+  ('/fotos/damas.webp', 'Hermanas de la iglesia', 'Congreso de la Familia 2026', null, 13, true),
+  ('/fotos/bautismo-familias.webp', 'Bautizados junto a sus familias', 'Bautismo en aguas 2026', null, 14, true),
+  ('/fotos/bautismo-abrazo.webp', 'Abrazo después del bautismo', 'Bautismo en aguas 2026', null, 15, true),
+  ('/fotos/mistura.webp', 'Preparando la comida en la Gran Mistura', 'Gran Mistura', null, 16, true);

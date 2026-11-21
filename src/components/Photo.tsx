@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { IconHome } from "./Icons";
 
 type Props = {
   src: string | null | undefined;
@@ -21,7 +20,9 @@ export default function Photo({ src, alt, ratio = "4 / 3", sizes = "(max-width: 
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} style={{ objectFit: "cover" }} />
       ) : (
         <div className="photo-fallback" aria-hidden="true">
-          <IconHome size={40} />
+          {/* Logo tenue mientras no hay foto */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="" />
         </div>
       )}
     </div>

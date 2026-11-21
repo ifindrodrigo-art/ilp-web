@@ -96,7 +96,7 @@ export default async function Home() {
             <Link href="/ministerios" className="text-link">Ver todos</Link>
           </div>
           <div className="grid-3">
-            {c.ministries.slice(0, 6).map((m) => (
+            {[...c.ministries].sort((a, b) => Number(Boolean(b.image_url)) - Number(Boolean(a.image_url)) || a.sort - b.sort).slice(0, 6).map((m) => (
               <MinistryCard key={m.slug} m={m} />
             ))}
           </div>
@@ -105,7 +105,11 @@ export default async function Home() {
 
       <section className="section container" aria-labelledby="t-predicas">
         <div className="split-wide">
-          {sermon ? <VideoEmbed id={sermon.youtube_id} title={sermon.title} /> : <Photo src={null} alt="" ratio="16 / 9" />}
+          {sermon ? (
+            <VideoEmbed id={sermon.youtube_id} title={sermon.title} />
+          ) : (
+            <Photo src="/fotos/predicador.webp" alt="Predicación en el Congreso de la Familia 2026" ratio="16 / 10" />
+          )}
           <div className="stack" style={{ gap: 20 }}>
             <span className="eyebrow">Prédicas</span>
             <h2 id="t-predicas" className="h-lg">{sermon ? sermon.title : "¿Te perdiste el culto?"}</h2>

@@ -17,7 +17,7 @@ export default function Footer({ settings, schedules }: { settings: Settings; sc
     <footer className="footer">
       <div className="container footer-grid">
         <div className="stack">
-          <span className="brand-name" style={{ color: "var(--red)", fontSize: 22 }}>los productores</span>
+          <span className="brand-name" style={{ fontSize: 22 }}>Iglesia Los Productores</span>
           <span className="muted">{MOTTO} Asambleas de Dios del Perú.</span>
         </div>
         <div className="stack">

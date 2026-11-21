@@ -135,7 +135,7 @@ export default function AdminApp() {
     <div className="admin-shell">
       <header className="admin-top">
         <div className="container admin-top-inner">
-          <span className="brand-name" style={{ color: "var(--red)" }}>los productores · panel</span>
+          <span className="brand-name">Panel · Los Productores</span>
           <div className="btn-row" style={{ alignItems: "center" }}>
             <span className="label" style={{ fontWeight: 400 }}>{session.user.email}</span>
             <Link className="btn btn-ghost btn-sm" href="/" target="_blank">
