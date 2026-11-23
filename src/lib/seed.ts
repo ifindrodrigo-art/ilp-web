@@ -285,13 +285,15 @@ export const HISTORY: { year: number; items: string[] }[] = [
   { year: 2019, items: ["Participamos en el centenario de las Asambleas de Dios del Perú"] },
   { year: 2014, items: ["10.° aniversario", "Seminario para la Familia"] },
   { year: 2012, items: ["Viaje misionero a Recuay (Huaraz)", "Trabajo misionero en Ancón"] },
-  { year: 2004, items: ["El pastor Macario Mauricio funda la iglesia, el 27 de febrero"] },
+  { year: 2004, items: ["El 27 de febrero, el pastor Macario Mauricio inicia la obra como anexo \"Los Productores\" de la Iglesia Cristiana La Hermosa"] },
 ];
 
 /** Pastor fundador. Su foto se sube desde el panel (Ajustes → Foto del pastor fundador). */
 export const FOUNDER = {
   name: "Macario Mauricio",
   wife: "Zenovia Palacin",
+  sons: "David y Ramiro Mauricio",
+  mother_church: "Iglesia Cristiana La Hermosa",
   verse: { text: "He peleado la buena batalla, he acabado la carrera, he guardado la fe.", ref: "2 Timoteo 4:7 (RVR1960)" },
 };
 

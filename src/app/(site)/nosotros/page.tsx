@@ -44,11 +44,12 @@ export default async function Nosotros() {
             <h2 id="t-fundador" className="h-lg">Pastor {FOUNDER.name}</h2>
             <p className="label">Fundador de la Iglesia Los Productores</p>
             <p className="lead">
-              El pastor {FOUNDER.name} inició la Iglesia Los Productores en 2004. Junto a su esposa, la pastora {FOUNDER.wife}, sembró en Ate
-              Vitarte la obra que hoy es nuestra familia.
+              El pastor {FOUNDER.name} inició la Iglesia Los Productores en 2004, como anexo de la {FOUNDER.mother_church}. Junto a su esposa,
+              la pastora {FOUNDER.wife}, sembró en Ate Vitarte la obra que hoy es nuestra familia.
             </p>
             <p className="muted">
-              Ya partió a la presencia del Señor. Su legado sigue vivo en su familia y en cada vida que fue tocada por esta obra.
+              Ya partió a la presencia del Señor. Su legado sigue vivo en su familia, en sus hijos, los pastores {FOUNDER.sons}, y en cada vida
+              que fue tocada por esta obra.
             </p>
             <blockquote className="memorial-verse">
               <p>“{FOUNDER.verse.text}”</p>
@@ -126,7 +127,7 @@ export default async function Nosotros() {
           <div className="stack">
             <span className="eyebrow">Archivo</span>
             <h2 id="t-inicios" className="h-md">Los primeros años</h2>
-            <p className="muted">Fotos del archivo de la iglesia. Toca una para verla completa.</p>
+            <p className="muted">De cuando éramos el anexo &ldquo;Los Productores&rdquo; de la {FOUNDER.mother_church}. Toca una foto para verla completa.</p>
           </div>
         </Reveal>
         <Gallery items={HISTORY_PHOTOS.slice(1)} className="gallery-archive" />
