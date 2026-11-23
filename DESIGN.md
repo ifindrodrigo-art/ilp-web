@@ -108,9 +108,9 @@ Contraste calculado (WCAG) sobre blanco:
 | Errores de formulario | `danger` (#B42318) | 6.6:1 |
 | Confirmaciones | `success` (#15803D) | 5.0:1 |
 
-- **Azul oscuro** es el único color de la interfaz: logo, menú, etiquetas, contorno de botones, fechas grandes. Nunca como fondo de bloques.
+- **Azul oscuro** es el único color de la interfaz: logo, menú, etiquetas, contorno de botones, fechas grandes. Como fondo, solo en la franja de números de Inicio (texto blanco, 14.8:1).
 - **Negro** para titulares y texto; `muted` para datos de apoyo.
-- `tint` solo para el fondo de fotos que aún no llegan (con el logo tenue encima).
+- `tint` para el fondo de fotos que aún no llegan (con el logo tenue encima) y para la franja "En memoria" de Nosotros.
 - `line` solo para divisores decorativos; las separaciones importantes van con línea `ink`.
 - Rojo (`danger`) solo en errores de formularios, siempre con ícono y texto.
 
@@ -125,7 +125,8 @@ Contraste calculado (WCAG) sobre blanco:
 
 - Riel de 1200 px, gutter de 24 px (16 px en celular), secciones separadas por 80 px (56 px en celular).
 - **Encabezado** blanco fijo de 72 px: Nosotros, Ministerios y Eventos a la izquierda; logo + "Iglesia Los Productores" al centro; Prédicas, Galería, Contacto y "Visítanos" a la derecha. En celular: logo + botón de menú.
-- **Inicio**: foto de la alabanza a sangre con el titular en blanco abajo a la izquierda (degradado oscuro medido) → horarios en fila con líneas finas → próximo evento → bienvenida (foto + texto) → ministerios en grilla de 3 (primero los que tienen foto) → prédica → galería → cómo llegar → "¿Es tu primera vez?" → pie.
+- **Inicio**: foto de la alabanza a sangre con el titular en blanco abajo a la izquierda (degradado oscuro medido) → horarios en fila con líneas finas → próximo evento → franja azul de números → bienvenida (foto con paralaje + texto, con el fundador) → pastores principales → ministerios en grilla de 3 (primero los que tienen foto) → franja de fotos que avanza sola → prédica → cómo llegar → "¿Es tu primera vez?" → pie.
+- **Nosotros**: titular → "En memoria" del pastor fundador → equipo pastoral → historia (foto antigua + línea de tiempo) → archivo de los primeros años → primera visita.
 - **En celular**, la foto principal va arriba y el titular debajo, sobre blanco, para no tapar a las personas.
 
 ## Elevation & Depth
