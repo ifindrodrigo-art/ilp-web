@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHead from "@/components/PageHead";
 import { MinistryCard } from "@/components/Sections";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { getContent } from "@/lib/content";
 
 export const revalidate = 60;
@@ -21,11 +22,13 @@ export default async function Ministerios() {
         intro="Cada etapa de la vida tiene su espacio. Encuentra el tuyo y súmate."
       />
       <section className="section container">
-        <div className="grid-3">
+        <RevealGroup className="grid-3">
           {ministries.map((m) => (
-            <MinistryCard key={m.slug} m={m} />
+            <RevealItem key={m.slug}>
+              <MinistryCard m={m} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </section>
     </>
   );

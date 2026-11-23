@@ -88,6 +88,8 @@ export type Settings = {
   logo_url: string | null;
   hero_image_url: string | null;
   welcome_image_url: string | null;
+  /** Foto del pastor fundador (sección En memoria de Nosotros) */
+  founder_image_url: string | null;
   live_url: string | null;
   youtube_url: string | null;
   instagram_url: string | null;

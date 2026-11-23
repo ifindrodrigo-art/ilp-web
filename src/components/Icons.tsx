@@ -122,3 +122,19 @@ export function IconArrowDown({ size = 22, className }: P) {
     </svg>
   );
 }
+
+export function IconPause({ size = 18, className }: P) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M9 5v14M15 5v14" />
+    </svg>
+  );
+}
+
+export function IconResume({ size = 18, className }: P) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M8 5.5v13l10-6.5z" />
+    </svg>
+  );
+}

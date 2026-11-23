@@ -313,6 +313,12 @@ textarea {
   touch-action: manipulation;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .btn:active {
+    transform: scale(0.97);
+  }
+}
+
 .btn:hover {
   text-decoration: none;
 }
@@ -721,11 +727,39 @@ textarea {
   }
 
   .rise-2 {
-    animation-delay: 90ms;
+    animation-delay: 120ms;
   }
 
   .rise-3 {
-    animation-delay: 180ms;
+    animation-delay: 240ms;
+  }
+
+  .rise-4 {
+    animation-delay: 360ms;
+  }
+
+  /* En la portada, el texto entra después de que suben las palabras del título */
+  .hero-content .rise-2 {
+    animation-delay: 650ms;
+  }
+
+  .hero-content .rise-3 {
+    animation-delay: 800ms;
+  }
+
+  .hero-content .rise-4 {
+    animation: rise 600ms var(--ease-out) 1100ms both, nudge 2.4s ease-in-out 1.8s 2;
+  }
+
+  @keyframes nudge {
+    0%,
+    100% {
+      transform: none;
+    }
+
+    50% {
+      transform: translateY(6px);
+    }
   }
 
   @keyframes rise {
@@ -993,11 +1027,21 @@ textarea {
 }
 
 .timeline > li {
+  position: relative;
   display: grid;
   grid-template-columns: 110px minmax(0, 1fr);
   gap: 24px;
   padding: 22px 0;
-  border-top: 1px solid var(--ink);
+}
+
+.timeline-rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left center;
 }
 
 .timeline-year {
@@ -1361,6 +1405,316 @@ label.btn:has(+ input:focus-visible) {
   }
 }
 
+/* ---------- Movimiento (Motion) ---------- */
+/* Portada: la foto vive en capas para el acercamiento y el paralaje */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-media-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* Título por palabras: cada palabra sube desde detrás de una máscara */
+.title-line {
+  display: block;
+}
+
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.14em 0.02em;
+  margin: -0.14em -0.02em;
+}
+
+.word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Franja de números, en el azul del logo */
+.stats-band {
+  background: var(--accent);
+  color: var(--white);
+  margin-top: var(--section);
+  padding: 64px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 32px 24px;
+}
+
+.stat {
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  padding-top: 20px;
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(64px, 8vw, 104px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+
+.stat-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Fotos que avanzan solas */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 64px;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: flex-end;
+}
+
+.marquee-item {
+  position: relative;
+  margin: 0 8px 0 0;
+  height: clamp(220px, 30vw, 340px);
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--tint);
+  flex-shrink: 0;
+}
+
+.marquee-item.is-tall {
+  aspect-ratio: 4 / 5;
+  height: clamp(260px, 36vw, 420px);
+}
+
+.marquee-item img {
+  object-fit: cover;
+}
+
+.marquee-toggle {
+  position: absolute;
+  bottom: 0;
+  right: var(--gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--ink);
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.marquee-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee var(--marquee-time, 80s) linear infinite;
+  }
+
+  .marquee[data-paused="true"] .marquee-track,
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Con "menos movimiento": no se mueve, se desliza a mano y sin copia repetida */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    padding-bottom: 16px;
+  }
+
+  .marquee-item[aria-hidden="true"],
+  .marquee-toggle {
+    display: none;
+  }
+}
+
+/* En memoria del pastor fundador */
+.memorial {
+  background: var(--tint);
+  margin-top: var(--section);
+  padding: 72px 0;
+}
+
+.memorial-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.memorial-photo .photo {
+  background: #e4e8ef;
+}
+
+.memorial-text {
+  gap: 18px;
+  max-width: 620px;
+}
+
+.memorial-text .label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+.memorial-verse {
+  margin: 12px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--ink);
+}
+
+.memorial-verse p {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+.memorial-verse cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .memorial {
+    padding: 48px 0;
+  }
+
+  .memorial-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .memorial-photo {
+    max-width: 240px;
+  }
+}
+
+/* Pastores */
+.pastor-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pastor-card figcaption {
+  padding: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pastor-card .photo img {
+    transition: transform 700ms var(--ease-out);
+  }
+
+  .pastor-card:hover .photo img {
+    transform: scale(1.04);
+  }
+}
+
+.pastor-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 40px 20px;
+}
+
+.team-grid > * {
+  grid-column: span 3;
+}
+
+/* Con 7 pastores: 3 arriba (más grandes) y 4 abajo */
+.team-grid > .is-top {
+  grid-column: span 4;
+}
+
+@media (max-width: 960px) {
+  .team-grid > *,
+  .team-grid > .is-top {
+    grid-column: span 4;
+  }
+}
+
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 12px;
+  }
+
+  .team-grid > *,
+  .team-grid > .is-top {
+    grid-column: auto;
+  }
+}
+
+/* Historia */
+@media (min-width: 901px) {
+  .history-aside {
+    position: sticky;
+    top: calc(var(--header) + 24px);
+  }
+}
+
+.gallery-archive button {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 901px) {
+  .gallery-archive {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* En celular, fotos de dos en dos para no hacer la página eterna */
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+}
+
 /* En celular: foto arriba y texto abajo sobre blanco, para no tapar a las personas */
 @media (max-width: 720px) {
   .hero-photo {
@@ -1369,9 +1723,9 @@ label.btn:has(+ input:focus-visible) {
     padding-top: min(78vw, 440px);
   }
 
-  .hero-photo .hero-img {
-    height: min(78vw, 440px) !important;
-    bottom: auto !important;
+  .hero-photo .hero-media {
+    height: min(78vw, 440px);
+    bottom: auto;
   }
 
   .hero-photo::after {

@@ -1,7 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import MotionProvider from "@/components/motion/MotionProvider";
 import { getContent } from "@/lib/content";
+import { FOUNDER } from "@/lib/seed";
 import { MOTTO, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -16,6 +18,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     slogan: MOTTO,
     url: SITE_URL,
     foundingDate: "2004-02-27",
+    founder: { "@type": "Person", name: FOUNDER.name },
     address: {
       "@type": "PostalAddress",
       streetAddress: "Calle Arequipa 303, Tilda",
@@ -30,7 +33,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   };
 
   return (
-    <>
+    <MotionProvider>
+      {/* Sin JavaScript, todo se ve de inmediato (las animaciones de entrada no corren) */}
+      <noscript>
+        <style>{`[data-reveal],.word{opacity:1!important;transform:none!important}`}</style>
+      </noscript>
       <a href="#contenido" className="skip-link">
         Saltar al contenido
       </a>
@@ -46,6 +53,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       </main>
       <Footer settings={settings} schedules={schedules} />
       <JsonLd data={church} />
-    </>
+    </MotionProvider>
   );
 }

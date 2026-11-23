@@ -48,3 +48,18 @@ export function upcomingEvents(events: EventItem[]): EventItem[] {
     .filter((e) => (e.ends_on ?? e.starts_on) >= today || (!e.date_confirmed && e.starts_on.slice(0, 7) >= today.slice(0, 7)))
     .sort((a, b) => a.starts_on.localeCompare(b.starts_on));
 }
+
+/** Elige fotos variadas: va tomando una de cada álbum por turnos. */
+export function varietyPick<T extends { album: string | null }>(items: T[], n: number): T[] {
+  const groups = new Map<string, T[]>();
+  for (const it of items) {
+    const k = it.album || "";
+    groups.set(k, [...(groups.get(k) ?? []), it]);
+  }
+  const lists = [...groups.values()];
+  const out: T[] = [];
+  for (let round = 0; out.length < n && lists.some((l) => l.length > round); round++) {
+    for (const l of lists) if (l[round] && out.length < n) out.push(l[round]);
+  }
+  return out;
+}

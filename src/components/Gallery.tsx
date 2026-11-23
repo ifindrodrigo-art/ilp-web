@@ -1,11 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { m } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IconChevronLeft, IconChevronRight, IconClose } from "./Icons";
 import type { GalleryItem } from "@/lib/types";
+import { EASE } from "./motion/Reveal";
 
-export default function Gallery({ items }: { items: GalleryItem[] }) {
+type Item = Pick<GalleryItem, "id" | "image_url" | "caption">;
+
+export default function Gallery({ items, className }: { items: Item[]; className?: string }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState<number | null>(null);
 
@@ -34,11 +38,21 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
 
   return (
     <>
-      <div className="gallery">
+      <div className={`gallery ${className ?? ""}`}>
         {items.map((g, i) => (
-          <button key={g.id} type="button" onClick={() => openAt(i)} aria-label={`Ver foto${g.caption ? `: ${g.caption}` : ""}`}>
+          <m.button
+            key={g.id}
+            type="button"
+            onClick={() => openAt(i)}
+            aria-label={`Ver foto${g.caption ? `: ${g.caption}` : ""}`}
+            data-reveal=""
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: EASE, delay: (i % 4) * 0.06 }}
+          >
             <Image src={g.image_url} alt={g.caption || "Foto de la iglesia"} width={440} height={440} sizes="(max-width: 600px) 50vw, 25vw" />
-          </button>
+          </m.button>
         ))}
       </div>
 

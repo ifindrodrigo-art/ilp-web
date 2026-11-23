@@ -144,12 +144,32 @@ Botones y chips con radio de 14 px. Fotos, inputs y bloques con esquinas rectas.
 - **Evento**: fecha grande en azul (o "Pronto" si no está confirmada), título, fecha en texto y lugar. Si tiene flyer, el título, la fecha y el lugar también van como texto real.
 - **Ministerio**: foto 4:5 a sangre (o el logo tenue si no hay foto), etiqueta azul con el público, nombre en mayúsculas, lema u horario, botón "Conoce más".
 - **Formularios**: etiquetas en mayúsculas encima, inputs rectos con borde `border`, errores en `danger` debajo de cada campo.
+- **Pastor**: foto 4:5 a sangre, nombre en mayúsculas y cargo en gris. En Nosotros, con 7 pastores: 3 arriba más grandes y 4 abajo.
+- **En memoria** (pastor fundador Macario Mauricio): franja `tint`, foto 4:5 (el logo tenue hasta que se suba su foto desde Ajustes), etiqueta "En memoria", nombre grande, versículo en azul con línea fina arriba. Tono sobrio, sin fechas inventadas.
+- **Números**: franja en el azul del logo con cifras grandes livianas en blanco (años, ministerios, reuniones, pastores). Todas salen de los datos, ninguna se escribe a mano.
+
+## Motion
+
+Librería: Motion (`motion/react`), cargada con `LazyMotion` + `domAnimation`. Movimiento sereno, propio de una iglesia: nada rebota ni gira.
+
+- Curva única: `cubic-bezier(0.16, 1, 0.3, 1)` (sale rápido y llega suave). Entradas de 0,6 a 0,9 s; escalonado de 80 a 90 ms entre tarjetas.
+- **Portada**: las palabras del título suben desde detrás de una máscara; la foto entra con un acercamiento de 5 s (una sola vez) y baja más lento que la página (paralaje). El resto del texto entra con CSS para no depender de JavaScript.
+- **Al bajar**: secciones y tarjetas aparecen con fundido y subida corta, una sola vez. La línea de tiempo dibuja su línea de izquierda a derecha.
+- **Números**: cuentan desde 0 cuando aparecen.
+- **Franja de fotos**: avanza sola muy despacio; se detiene al pasar el mouse, al enfocar con teclado y con el botón Pausar.
+- **Accesibilidad**: con "reducir movimiento" no hay desplazamientos ni franja en movimiento (solo fundidos). Sin JavaScript todo se ve de inmediato. Lo de arriba de la pantalla nunca espera a JavaScript.
 
 ## Imagery
 
-- Banco inicial: 17 fotos del Instagram de la iglesia (Congreso de la Familia 2026, Bautismo en aguas 2026 y Gran Mistura), en `public/fotos`. Se recortaron para quitar las marcas de los posts y se guardaron en WebP.
+- Banco de fotos en `public/fotos` (WebP, máximo 1800 px):
+  - `pastores/`: 7 retratos 4:5 recortados de las fotos que reunió Comunicaciones (noviembre de 2026).
+  - `ministerios/`: fotos 4:5 de Niños, Jóvenes, Alabanza, Damas, Misiones y Oración.
+  - `galeria/`: 43 fotos en álbumes (Vida de iglesia, Alabanza, Congreso juvenil, Congreso de Damas, Bautismo, Evangelismo, Misión Infantil, Dedicación de niños).
+  - `historia/`: 11 fotos antiguas del archivo, sin bordes negros y sin enfocar de más (son de baja resolución: se muestran pequeñas).
+  - Las 17 primeras, del Instagram de la iglesia, siguen en la raíz de `public/fotos`.
 - Logo: versión en azul oscuro sobre transparente (`public/logo.png`), hecha a partir del logo blanco de la iglesia. Si Comunicaciones tiene el archivo original en alta calidad o vectorial, se reemplaza.
-- Sin fotos de niños ni adolescentes con la cara visible hasta tener el permiso de los padres; por eso Niños, Teens, Varones y Misiones todavía no tienen foto.
+- Fotos con niños (Misión Infantil, Dedicación): publicadas por decisión de Comunicaciones; confirmar el permiso de los padres. Teens y Varones todavía no tienen foto.
+- Las fotos subidas desde el panel se achican en el navegador (máximo 2000 px, WebP) antes de guardarse en Supabase.
 - WebP responsivas, con ancho y alto declarados y carga diferida fuera de la primera pantalla. Texto alternativo que describa la escena.
 
 ## Do's and Don'ts
@@ -158,5 +178,5 @@ Botones y chips con radio de 14 px. Fotos, inputs y bloques con esquinas rectas.
 - Do: titulares grandes y livianos; un solo peso en el texto.
 - Do: fotos reales de ILP a sangre, sin esquinas redondeadas.
 - Don't: botones rellenos, sombras, negritas, otros colores de acento.
-- Don't: fotos de stock, testimonios o cifras inventadas, carruseles que giran solos, video con sonido automático.
+- Don't: fotos de stock, testimonios o cifras inventadas, carruseles que giran solos sin botón de pausa, video con sonido automático.
 - Don't: flyers como única fuente de información.

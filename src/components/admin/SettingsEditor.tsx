@@ -34,6 +34,8 @@ export default function SettingsEditor({ sb }: { sb: SupabaseClient }) {
     setError(null);
     const payload: Row = { updated_at: new Date().toISOString() };
     for (const f of SETTINGS_FIELDS) {
+      // Solo columnas que ya existen en la base (por si falta correr una actualización)
+      if (!(f.key in row)) continue;
       const v = row[f.key];
       payload[f.key] = typeof v === "string" ? v.trim() || null : v ?? null;
     }
@@ -53,7 +55,7 @@ export default function SettingsEditor({ sb }: { sb: SupabaseClient }) {
         <p className="muted" style={{ fontSize: 15 }}>Contacto, logo, fotos principales, redes y los textos de Nosotros.</p>
       </div>
       <div className="admin-form-grid">
-        {SETTINGS_FIELDS.map((f) => (
+        {SETTINGS_FIELDS.filter((f) => f.key in row).map((f) => (
           <div key={f.key} className={f.type === "textarea" || f.type === "image" ? "span-2" : undefined}>
             <FieldInput
               field={f}

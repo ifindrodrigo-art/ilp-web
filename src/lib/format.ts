@@ -85,3 +85,10 @@ export function whatsappLink(raw: string | null | undefined, text?: string): str
   const q = text ? `?text=${encodeURIComponent(text)}` : "";
   return `https://wa.me/${digits}${q}`;
 }
+
+/** Años cumplidos desde una fecha "AAAA-MM-DD" (hora de Lima). */
+export function yearsSince(date: string): number {
+  const today = todayInLima();
+  const years = Number(today.slice(0, 4)) - Number(date.slice(0, 4));
+  return today.slice(5) < date.slice(5) ? years - 1 : years;
+}

@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
+import Gallery from "@/components/Gallery";
 import Photo from "@/components/Photo";
 import PageHead from "@/components/PageHead";
 import { FirstVisit } from "@/components/Sections";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import Timeline from "@/components/motion/Timeline";
 import { getContent } from "@/lib/content";
-import { HISTORY } from "@/lib/seed";
+import { FOUNDER, HISTORY, HISTORY_PHOTOS } from "@/lib/seed";
 import { MOTTO } from "@/lib/site";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Nosotros",
-  description: "Iglesia de las Asambleas de Dios del Perú en Ate Vitarte desde 2004. Nuestra historia y nuestro equipo pastoral.",
+  description:
+    "Iglesia de las Asambleas de Dios del Perú en Ate Vitarte, fundada en 2004 por el pastor Macario Mauricio. Nuestra historia y nuestro equipo pastoral.",
   alternates: { canonical: "/nosotros" },
 };
 
@@ -29,70 +33,109 @@ export default async function Nosotros() {
         intro="Somos la Iglesia Los Productores, una iglesia de las Asambleas de Dios del Perú (Región Lima Este) en Ate Vitarte. Desde el 27 de febrero de 2004 buscamos transmitir vida a través de nuestra vida."
       />
 
+      {/* En memoria del pastor fundador */}
+      <section className="memorial" aria-labelledby="t-fundador">
+        <div className="container memorial-inner">
+          <Reveal className="memorial-photo">
+            <Photo src={settings.founder_image_url} alt={`Pastor ${FOUNDER.name}`} ratio="4 / 5" sizes="(max-width: 900px) 80vw, 380px" />
+          </Reveal>
+          <Reveal className="stack memorial-text" delay={0.15}>
+            <span className="eyebrow">En memoria</span>
+            <h2 id="t-fundador" className="h-lg">Pastor {FOUNDER.name}</h2>
+            <p className="label">Fundador de la Iglesia Los Productores</p>
+            <p className="lead">
+              El pastor {FOUNDER.name} inició la Iglesia Los Productores en 2004. Junto a su esposa, la pastora {FOUNDER.wife}, sembró en Ate
+              Vitarte la obra que hoy es nuestra familia.
+            </p>
+            <p className="muted">
+              Ya partió a la presencia del Señor. Su legado sigue vivo en su familia y en cada vida que fue tocada por esta obra.
+            </p>
+            <blockquote className="memorial-verse">
+              <p>“{FOUNDER.verse.text}”</p>
+              <cite>{FOUNDER.verse.ref}</cite>
+            </blockquote>
+          </Reveal>
+        </div>
+      </section>
+
       {beliefs.length > 0 && (
         <section className="section container" aria-label="Visión y misión">
-          <div className="grid" style={{ ["--min" as string]: "320px" }}>
+          <RevealGroup className="grid" style={{ ["--min" as string]: "320px" }}>
             {beliefs.map((b) => (
-              <div key={b.title} className="card stack" style={{ gap: 12 }}>
+              <RevealItem key={b.title} className="card stack" style={{ gap: 12 }}>
                 <h2 className="h-md">{b.title}</h2>
                 <p className="muted" style={{ whiteSpace: "pre-line" }}>{b.text}</p>
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </section>
       )}
 
       {settings.beliefs && (
         <section className="section container" aria-labelledby="t-creemos">
-          <h2 id="t-creemos" className="h-lg" style={{ marginBottom: 24 }}>En qué creemos</h2>
-          <p className="prose">{settings.beliefs}</p>
+          <Reveal>
+            <h2 id="t-creemos" className="h-lg" style={{ marginBottom: 24 }}>En qué creemos</h2>
+            <p className="prose">{settings.beliefs}</p>
+          </Reveal>
         </section>
       )}
 
       {team.length > 0 && (
-        <section className="section container" aria-labelledby="t-pastores">
-          <h2 id="t-pastores" className="h-lg" style={{ marginBottom: 32 }}>Nuestros pastores</h2>
-          <div className="grid" style={{ ["--min" as string]: "260px" }}>
-            {team.map((p) => (
-              <div key={p.id} className="card-link">
-                <Photo src={p.image_url} alt={p.name} ratio="4 / 5" sizes="(max-width: 900px) 100vw, 33vw" />
-                <div className="ministry-body">
-                  {p.role && <span className="eyebrow">{p.role}</span>}
-                  <span className="h-sm">{p.name}</span>
-                  {p.bio && <p className="muted" style={{ fontSize: 15 }}>{p.bio}</p>}
-                </div>
-              </div>
+        <section id="pastores" className="section container" aria-labelledby="t-pastores">
+          <Reveal className="section-head">
+            <div className="stack">
+              <span className="eyebrow">Equipo pastoral</span>
+              <h2 id="t-pastores" className="h-lg">Nuestros pastores</h2>
+            </div>
+          </Reveal>
+          <RevealGroup className="team-grid">
+            {team.map((p, i) => (
+              <RevealItem key={p.id} className={team.length % 4 === 3 && i < 3 ? "is-top" : undefined}>
+                <figure className="pastor-card">
+                  <Photo src={p.image_url} alt={p.name} ratio="4 / 5" sizes="(max-width: 600px) 50vw, (max-width: 960px) 33vw, 25vw" />
+                  <figcaption>
+                    <span className="h-sm">{p.name}</span>
+                    {p.role && <span className="label">{p.role}</span>}
+                    {p.bio && <span className="muted" style={{ fontSize: 15 }}>{p.bio}</span>}
+                  </figcaption>
+                </figure>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </section>
       )}
 
       <section className="section container" aria-labelledby="t-historia">
         <div className="split" style={{ alignItems: "start" }}>
-          <div className="stack" style={{ gap: 20, position: "sticky", top: "calc(var(--header) + 24px)" }}>
+          <Reveal className="stack history-aside" style={{ gap: 20 }}>
             <h2 id="t-historia" className="h-lg">Nuestra historia</h2>
             <p className="muted">
               Más de veinte años creciendo como familia: congresos, campamentos, viajes misioneros y, en 2024, la dedicación de nuestro nuevo local.
             </p>
-            <Photo src={settings.welcome_image_url} alt="El local de la iglesia" />
-          </div>
-          <ol className="timeline">
-            {HISTORY.map((h) => (
-              <li key={h.year}>
-                <span className="timeline-year">{h.year}</span>
-                <ul>
-                  {h.items.map((it) => (
-                    <li key={it}>{it}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ol>
+            <figure className="stack" style={{ gap: 8, margin: 0 }}>
+              <Photo src={HISTORY_PHOTOS[0].image_url} alt={HISTORY_PHOTOS[0].caption} ratio="16 / 10" />
+              <figcaption className="label">Así empezamos: {HISTORY_PHOTOS[0].caption.toLowerCase()}.</figcaption>
+            </figure>
+          </Reveal>
+          <Timeline items={HISTORY} />
         </div>
       </section>
 
+      <section className="section container" aria-labelledby="t-inicios" style={{ paddingTop: 0 }}>
+        <Reveal className="section-head">
+          <div className="stack">
+            <span className="eyebrow">Archivo</span>
+            <h2 id="t-inicios" className="h-md">Los primeros años</h2>
+            <p className="muted">Fotos del archivo de la iglesia. Toca una para verla completa.</p>
+          </div>
+        </Reveal>
+        <Gallery items={HISTORY_PHOTOS.slice(1)} className="gallery-archive" />
+      </section>
+
       <section className="section container" aria-label="Primera visita" style={{ paddingTop: 0 }}>
-        <FirstVisit settings={settings} />
+        <Reveal>
+          <FirstVisit settings={settings} />
+        </Reveal>
       </section>
     </>
   );

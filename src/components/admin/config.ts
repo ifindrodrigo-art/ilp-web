@@ -140,7 +140,7 @@ export const TABLES: TableConfig[] = [
     pk: "id",
     title: "Galería",
     singular: "foto",
-    intro: "Sube varias fotos a la vez. Usa fotos horizontales, sin filtros. No subas caras de niños sin permiso de sus padres.",
+    intro: "Sube varias fotos a la vez: se achican solas antes de subir. Usa fotos sin filtros. No subas caras de niños sin permiso de sus padres.",
     order: [
       { column: "sort", ascending: true },
       { column: "created_at", ascending: false },
@@ -205,7 +205,8 @@ export const SETTINGS_FIELDS: Field[] = [
   { key: "email", label: "Correo oficial", type: "text", max: 120 },
   { key: "logo_url", label: "Logo", type: "image", help: "PNG sin fondo, de preferencia horizontal." },
   { key: "hero_image_url", label: "Foto principal de la portada", type: "image", help: "Horizontal y de muy buena calidad: culto o alabanza." },
-  { key: "welcome_image_url", label: "Foto de bienvenida", type: "image", help: "Sale en Inicio y Nosotros. Por ejemplo, el local." },
+  { key: "welcome_image_url", label: "Foto de bienvenida", type: "image", help: "Sale en Inicio, junto a Nosotros." },
+  { key: "founder_image_url", label: "Foto del pastor fundador", type: "image", help: "Pastor Macario Mauricio. Sale en Nosotros, en la sección En memoria." },
   { key: "live_url", label: "Link de cultos en vivo", type: "url" },
   { key: "youtube_url", label: "YouTube", type: "url" },
   { key: "instagram_url", label: "Instagram", type: "url" },

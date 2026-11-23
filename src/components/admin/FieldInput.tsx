@@ -7,10 +7,52 @@ import type { Field } from "./config";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+/** Lado más largo con el que se guardan las fotos. Suficiente para pantallas grandes. */
+const MAX_SIDE = 2000;
 
-export async function uploadImage(sb: SupabaseClient, file: File, folder: string): Promise<string> {
-  if (!TYPES.includes(file.type)) throw new Error("Usa una foto JPG, PNG o WebP.");
-  if (file.size > MAX_BYTES) throw new Error("La foto pesa más de 5 MB. Prueba con una más liviana.");
+function toBlob(canvas: HTMLCanvasElement, type: string, quality: number) {
+  return new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality));
+}
+
+/**
+ * Achica la foto en el navegador antes de subirla (máximo 2000 px, WebP de buena calidad).
+ * Una foto de celular de 6 MB queda en unos 300 a 600 KB, así el espacio gratuito de
+ * Supabase alcanza para miles de fotos. Si el navegador no puede, sube la original.
+ */
+export async function compressImage(file: File): Promise<File> {
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const scale = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+    if (scale === 1 && file.size < 500 * 1024) {
+      bmp.close();
+      return file;
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    bmp.close();
+    let blob = await toBlob(canvas, "image/webp", 0.82);
+    // Algunos Safari no guardan WebP: usamos JPEG, salvo en PNG (perdería la transparencia).
+    if (!blob || blob.type !== "image/webp") {
+      if (file.type === "image/png") return file;
+      blob = await toBlob(canvas, "image/jpeg", 0.85);
+    }
+    if (!blob || blob.size >= file.size) return file;
+    const ext = blob.type === "image/webp" ? "webp" : "jpg";
+    return new File([blob], `${file.name.replace(/\.[^.]+$/, "")}.${ext}`, { type: blob.type });
+  } catch {
+    return file;
+  }
+}
+
+export async function uploadImage(sb: SupabaseClient, original: File, folder: string): Promise<string> {
+  if (!TYPES.includes(original.type)) throw new Error("Usa una foto JPG, PNG o WebP.");
+  const file = await compressImage(original);
+  if (file.size > MAX_BYTES) throw new Error("La foto pesa más de 5 MB incluso achicada. Prueba con otra.");
   const ext = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
   const { error } = await sb.storage.from(MEDIA_BUCKET).upload(path, file, { contentType: file.type, upsert: false, cacheControl: "31536000" });

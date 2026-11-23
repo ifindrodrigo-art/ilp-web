@@ -58,6 +58,20 @@ Lo que se edita en el panel aparece en la web en **alrededor de un minuto**.
 ### 5. Dominio propio (opcional)
 Si la iglesia compra un dominio (por ejemplo `iglesialosproductores.com`), se conecta en Vercel → **Settings → Domains**. Luego pon esa dirección en la variable `NEXT_PUBLIC_SITE_URL` y vuelve a desplegar.
 
+## Actualizaciones de la base de datos
+
+Cuando se agregan columnas o contenido nuevo a una web que ya está en línea, va un archivo aparte en `supabase/` que se corre una vez en Supabase → SQL Editor (no borra nada y se puede repetir):
+
+- `actualizacion-2026-11-22-fotos.sql`: pastores con foto, fotos de ministerios, 43 fotos de galería y la columna para la foto del pastor fundador.
+
+`schema.sql` es solo para un proyecto nuevo: borra y crea todo.
+
+## Espacio y planes gratuitos
+
+- Las fotos del panel se achican antes de subir (máximo 2000 px, WebP): unos 300 a 600 KB cada una. El 1 GB gratuito de Supabase alcanza para más de 1500 fotos.
+- Las fotos optimizadas se guardan 31 días en Vercel (`minimumCacheTTL`), para no gastar el límite mensual de conversiones.
+- Vercel llama a `/api/keepalive` una vez al día (`vercel.json`), para que Supabase no pause el proyecto por inactividad.
+
 ## Antes de compartirla con la iglesia
 
 - [ ] WhatsApp o teléfono oficial y un correo (Ajustes)
