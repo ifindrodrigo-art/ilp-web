@@ -84,6 +84,7 @@ export const TABLES: TableConfig[] = [
         ],
       },
       { key: "note", label: "Nota", type: "text", max: 120, help: "Por ejemplo: Jóvenes, o Primer domingo de cada mes." },
+      { key: "streamed", label: "Se transmite en vivo", type: "checkbox", help: "A esa hora el botón \"Cultos en vivo\" se pone rojo." },
       { key: "sort", label: "Orden", type: "number", help: "Número más bajo = sale primero." },
       { key: "active", label: "Visible en la web", type: "checkbox" },
     ],

@@ -12,6 +12,8 @@ export type Schedule = {
   note: string | null;
   sort: number;
   active: boolean;
+  /** Se transmite en vivo (el botón "Cultos en vivo" se pone rojo a esa hora) */
+  streamed?: boolean;
 };
 
 export type EventItem = {

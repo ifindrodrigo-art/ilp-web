@@ -14,7 +14,7 @@ export const SEED: SiteContent = {
     whatsapp: null,
     email: null,
     logo_url: "/logo.png",
-    hero_image_url: "/fotos/portada-hd.webp",
+    hero_image_url: "/fotos/portada-interior.webp",
     welcome_image_url: "/fotos/familia-abrazo-hd.webp",
     founder_image_url: null,
     live_url: "https://www.facebook.com/iglesiaproductores",
@@ -31,12 +31,12 @@ export const SEED: SiteContent = {
     first_visit: null,
   },
   schedules: [
-    { id: "s1", day: 2, start_time: "19:00", end_time: null, name: "Culto de oración", recurrence: "weekly", note: null, sort: 1, active: true },
-    { id: "s2", day: 6, start_time: "15:00", end_time: null, name: "Xtreme Teens", recurrence: "weekly", note: "Adolescentes", sort: 2, active: true },
-    { id: "s3", day: 6, start_time: "19:00", end_time: null, name: "Misión Juvenil", recurrence: "weekly", note: "Jóvenes", sort: 3, active: true },
-    { id: "s4", day: 0, start_time: "10:00", end_time: null, name: "Culto central", recurrence: "weekly", note: "Primer servicio", sort: 4, active: true },
-    { id: "s5", day: 0, start_time: "17:00", end_time: null, name: "Culto central", recurrence: "weekly", note: "Segundo servicio", sort: 5, active: true },
-    { id: "s6", day: 0, start_time: "08:00", end_time: "19:00", name: "Ayuno y Santa Cena", recurrence: "monthly", note: "Primer domingo de cada mes", sort: 6, active: true },
+    { id: "s1", day: 2, start_time: "19:00", end_time: null, name: "Culto de oración", recurrence: "weekly", note: null, sort: 1, active: true, streamed: true },
+    { id: "s2", day: 6, start_time: "15:00", end_time: null, name: "Xtreme Teens", recurrence: "weekly", note: "Adolescentes", sort: 2, active: true, streamed: false },
+    { id: "s3", day: 6, start_time: "19:00", end_time: null, name: "Misión Juvenil", recurrence: "weekly", note: "Jóvenes", sort: 3, active: true, streamed: false },
+    { id: "s4", day: 0, start_time: "10:00", end_time: null, name: "Culto central", recurrence: "weekly", note: "Primer servicio", sort: 4, active: true, streamed: true },
+    { id: "s5", day: 0, start_time: "17:00", end_time: null, name: "Culto central", recurrence: "weekly", note: "Segundo servicio", sort: 5, active: true, streamed: true },
+    { id: "s6", day: 0, start_time: "08:00", end_time: "19:00", name: "Ayuno y Santa Cena", recurrence: "monthly", note: "Primer domingo de cada mes", sort: 6, active: true, streamed: false },
   ],
   events: [
     {

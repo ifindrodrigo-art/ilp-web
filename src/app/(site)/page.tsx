@@ -1,4 +1,6 @@
 import Link from "next/link";
+import LiveLink from "@/components/LiveLink";
+import { liveSlots } from "@/lib/live";
 import Photo from "@/components/Photo";
 import VideoEmbed from "@/components/VideoEmbed";
 import { IconArrowDown } from "@/components/Icons";
@@ -49,12 +51,7 @@ export default async function Home() {
                 Planea tu visita
               </Link>
             </Magnetic>
-            {settings.live_url && (
-              <a className={`btn ${hasPhoto ? "btn-light" : "btn-ghost"}`} href={settings.live_url} target="_blank" rel="noopener noreferrer">
-                <span className="live-dot" aria-hidden="true" />
-                Cultos en vivo
-              </a>
-            )}
+            {settings.live_url && <LiveLink href={settings.live_url} slots={liveSlots(c.schedules)} className={`btn ${hasPhoto ? "btn-light" : "btn-ghost"}`} />}
           </div>
           <p className="label num rise rise-3">{[sundayText, "Calle Arequipa 303, Tilda, Ate"].filter(Boolean).join("  |  ")}</p>
           <a href="#horarios" className="scroll-cue rise rise-4" aria-label="Ver horarios">

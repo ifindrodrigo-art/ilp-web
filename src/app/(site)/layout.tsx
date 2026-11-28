@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { liveSlots } from "@/lib/live";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import MotionProvider from "@/components/motion/MotionProvider";
@@ -47,7 +48,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
           {notice.link_url && <a href={notice.link_url}>{notice.link_label || "Ver más"}</a>}
         </div>
       )}
-      <Header logoUrl={settings.logo_url} liveUrl={settings.live_url} />
+      <Header logoUrl={settings.logo_url} liveUrl={settings.live_url} liveSlots={liveSlots(schedules)} />
       <main id="contenido" tabIndex={-1}>
         {children}
       </main>

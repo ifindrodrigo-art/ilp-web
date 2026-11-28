@@ -22,7 +22,7 @@ export function HeroMedia({ src }: { src: string }) {
           animate={{ scale: 1 }}
           transition={{ duration: 5, ease: EASE }}
         >
-          <Image className="hero-img" src={src} alt="" fill priority sizes="100vw" />
+          <Image className="hero-img" src={src} alt="" fill priority quality={90} sizes="100vw" />
         </m.div>
       </m.div>
     </div>

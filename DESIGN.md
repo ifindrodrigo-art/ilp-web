@@ -162,6 +162,7 @@ Librería: Motion (`motion/react`), cargada con `LazyMotion` + `domAnimation`. M
 - **Fotos**: se descubren con una cortina (clip-path) y un leve acercamiento al entrar en pantalla. El disparador es un contenedor sin recorte (Chrome no detecta un elemento con clip-path cerrado).
 - **Franjas de texto gigante**: palabras en contorno azul que se deslizan con el scroll y se inclinan según la velocidad. No se mueven solas.
 - **Botones magnéticos** en las llamadas principales (solo con mouse).
+- **En vivo**: el botón "Cultos en vivo" se pone rojo (`--live` #E5252A, punto con pulso y borde) desde 5 min antes del inicio hasta el fin (o 2 h) de las reuniones marcadas "Se transmite en vivo" en Horarios. Se calcula en el navegador cada 30 s, en hora de Lima. El rojo solo se usa para esto.
 - **Galería**: riel de álbumes fijo que avanza de lado al bajar (escritorio; en celular se desliza con el dedo), mosaico con filtros animados (layout), cursor "Ver" y visor con deslizar, teclado y miniaturas.
 - **Ministerio**: portada a sangre como la de Inicio, datos en tarjetas, tira de fotos arrastrable con barra de avance, video destacado y franja azul "Súmate".
 - **Prédicas**: reproductor grande; al elegir un culto pasa arriba con transición y empieza a sonar. Filtros por tipo.

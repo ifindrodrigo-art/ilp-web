@@ -19,10 +19,10 @@ function toBlob(canvas: HTMLCanvasElement, type: string, quality: number) {
  * Una foto de celular de 6 MB queda en unos 300 a 600 KB, así el espacio gratuito de
  * Supabase alcanza para miles de fotos. Si el navegador no puede, sube la original.
  */
-export async function compressImage(file: File): Promise<File> {
+export async function compressImage(file: File, maxSide = MAX_SIDE, quality = 0.82): Promise<File> {
   try {
     const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
-    const scale = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+    const scale = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
     if (scale === 1 && file.size < 500 * 1024) {
       bmp.close();
       return file;
@@ -35,11 +35,11 @@ export async function compressImage(file: File): Promise<File> {
     ctx.imageSmoothingQuality = "high";
     ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
     bmp.close();
-    let blob = await toBlob(canvas, "image/webp", 0.82);
+    let blob = await toBlob(canvas, "image/webp", quality);
     // Algunos Safari no guardan WebP: usamos JPEG, salvo en PNG (perdería la transparencia).
     if (!blob || blob.type !== "image/webp") {
       if (file.type === "image/png") return file;
-      blob = await toBlob(canvas, "image/jpeg", 0.85);
+      blob = await toBlob(canvas, "image/jpeg", Math.min(0.92, quality + 0.03));
     }
     if (!blob || blob.size >= file.size) return file;
     const ext = blob.type === "image/webp" ? "webp" : "jpg";
@@ -51,7 +51,8 @@ export async function compressImage(file: File): Promise<File> {
 
 export async function uploadImage(sb: SupabaseClient, original: File, folder: string): Promise<string> {
   if (!TYPES.includes(original.type)) throw new Error("Usa una foto JPG, PNG o WebP.");
-  const file = await compressImage(original);
+  // Las fotos de Ajustes (portada, bienvenida, fundador) se ven a pantalla completa: más resolución y calidad.
+  const file = folder === "ajustes" ? await compressImage(original, 2880, 0.9) : await compressImage(original);
   if (file.size > MAX_BYTES) throw new Error("La foto pesa más de 5 MB incluso achicada. Prueba con otra.");
   const ext = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;

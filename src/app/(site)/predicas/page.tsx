@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LiveLink from "@/components/LiveLink";
+import { liveSlots } from "@/lib/live";
 import PageHead from "@/components/PageHead";
 import SermonBrowser from "@/components/SermonBrowser";
 import VideoEmbed from "@/components/VideoEmbed";
@@ -36,10 +38,7 @@ export default async function Predicas() {
         <div className="btn-row">
           {settings.live_url && (
             <Magnetic>
-              <a className="btn btn-primary" href={settings.live_url} target="_blank" rel="noopener noreferrer">
-                <span className="live-dot" aria-hidden="true" />
-                Ver en vivo en Facebook
-              </a>
+              <LiveLink href={settings.live_url} slots={liveSlots(schedules)} className="btn btn-primary" idleLabel="Ver en vivo en Facebook" liveLabel="En vivo ahora en Facebook" />
             </Magnetic>
           )}
           {settings.youtube_url && (

@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { NAV } from "@/lib/site";
 import { IconClose, IconMenu } from "./Icons";
+import LiveLink from "./LiveLink";
+import type { LiveSlot } from "@/lib/live";
 
-type Props = { logoUrl: string | null; liveUrl: string | null };
+type Props = { logoUrl: string | null; liveUrl: string | null; liveSlots: LiveSlot[] };
 
 function Brand({ logoUrl }: { logoUrl: string | null }) {
   return (
@@ -25,7 +27,7 @@ function Brand({ logoUrl }: { logoUrl: string | null }) {
   );
 }
 
-export default function Header({ logoUrl, liveUrl }: Props) {
+export default function Header({ logoUrl, liveUrl, liveSlots }: Props) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -122,12 +124,7 @@ export default function Header({ logoUrl, liveUrl }: Props) {
             <Link className="btn btn-primary" href="/visitanos">
               Planea tu visita
             </Link>
-            {liveUrl && (
-              <a className="btn btn-ghost" href={liveUrl} target="_blank" rel="noopener noreferrer">
-                <span className="live-dot" aria-hidden="true" />
-                Cultos en vivo
-              </a>
-            )}
+            {liveUrl && <LiveLink href={liveUrl} slots={liveSlots} />}
           </div>
         </div>
       )}

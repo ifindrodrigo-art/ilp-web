@@ -66,7 +66,8 @@ create table public.schedules (
   recurrence text not null default 'weekly' check (recurrence in ('weekly', 'monthly')),
   note       text check (char_length(note) <= 120),
   sort       int not null default 0,
-  active     boolean not null default true
+  active     boolean not null default true,
+  streamed   boolean not null default false
 );
 
 create table public.events (
@@ -238,13 +239,13 @@ create policy "media: admin borra" on storage.objects for delete to authenticate
 -- ---------- Contenido inicial (datos públicos de la iglesia, fotos y cultos, 28/11/2026) ----------
 insert into public.settings (id, whatsapp, email, logo_url, hero_image_url, welcome_image_url, founder_image_url, live_url, youtube_url, instagram_url, facebook_url, tiktok_url, address, address_reference, maps_url, vision, mission, beliefs, first_visit) values (1, null, null, '/logo.png', '/fotos/portada-hd.webp', '/fotos/familia-abrazo-hd.webp', null, 'https://www.facebook.com/iglesiaproductores', 'https://www.youtube.com/@IglesiaLosProductores', 'https://www.instagram.com/iglesialosproductores', 'https://www.facebook.com/iglesiaproductores', 'https://www.tiktok.com/@iglesialosproductores', 'Calle Arequipa 303, Tilda, Ate Vitarte, Lima', 'A espaldas del grifo Petroperú, al lado de la nueva SUNAT.', 'https://maps.app.goo.gl/thrET51JXLkCqAsK6', null, null, null, null);
 
-insert into public.schedules (day, start_time, end_time, name, recurrence, note, sort, active) values
-  (2, '19:00', null, 'Culto de oración', 'weekly', null, 1, true),
-  (6, '15:00', null, 'Xtreme Teens', 'weekly', 'Adolescentes', 2, true),
-  (6, '19:00', null, 'Misión Juvenil', 'weekly', 'Jóvenes', 3, true),
-  (0, '10:00', null, 'Culto central', 'weekly', 'Primer servicio', 4, true),
-  (0, '17:00', null, 'Culto central', 'weekly', 'Segundo servicio', 5, true),
-  (0, '08:00', '19:00', 'Ayuno y Santa Cena', 'monthly', 'Primer domingo de cada mes', 6, true);
+insert into public.schedules (day, start_time, end_time, name, recurrence, note, sort, active, streamed) values
+  (2, '19:00', null, 'Culto de oración', 'weekly', null, 1, true, true),
+  (6, '15:00', null, 'Xtreme Teens', 'weekly', 'Adolescentes', 2, true, false),
+  (6, '19:00', null, 'Misión Juvenil', 'weekly', 'Jóvenes', 3, true, false),
+  (0, '10:00', null, 'Culto central', 'weekly', 'Primer servicio', 4, true, true),
+  (0, '17:00', null, 'Culto central', 'weekly', 'Segundo servicio', 5, true, true),
+  (0, '08:00', '19:00', 'Ayuno y Santa Cena', 'monthly', 'Primer domingo de cada mes', 6, true, false);
 
 insert into public.events (title, starts_on, ends_on, date_confirmed, time_text, location, description, image_url, ministry_slug, link_url, published) values
   ('Culto de Acción de Gracias y fin de año', '2026-12-15', null, false, null, 'Calle Arequipa 303, Tilda, Ate', 'Cerramos el año dando gracias a Dios, como familia.', null, null, null, true),

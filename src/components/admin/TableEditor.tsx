@@ -41,10 +41,11 @@ export default function TableEditor({ sb, config, ministryOptions, onChanged }: 
   const [bulkAlbum, setBulkAlbum] = useState("");
   const [bulkState, setBulkState] = useState<string | null>(null);
 
-  const fields = useMemo(
-    () => config.fields.map((f) => (f.key === "ministry_slug" ? { ...f, options: ministryOptions } : f)),
-    [config.fields, ministryOptions],
-  );
+  // Solo los campos que ya existen en la base (por si falta correr una actualización SQL)
+  const fields = useMemo(() => {
+    const base = config.fields.map((f) => (f.key === "ministry_slug" ? { ...f, options: ministryOptions } : f));
+    return rows.length ? base.filter((f) => f.key in rows[0]) : base;
+  }, [config.fields, ministryOptions, rows]);
 
   const load = useCallback(async () => {
     setLoading(true);

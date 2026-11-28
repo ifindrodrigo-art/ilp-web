@@ -12,6 +12,7 @@
   --border: #7a8190;
   --success: #15803d;
   --danger: #b42318;
+  --live: #e5252a;
 
   --font-display: "Inter Tight Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body: "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -396,12 +397,49 @@ textarea {
 }
 
 .live-dot {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 8px;
   background: var(--accent);
   display: inline-block;
   flex-shrink: 0;
+}
+
+.btn-light .live-dot {
+  background: var(--white);
+}
+
+/* En horario de transmisión: punto rojo con pulso y borde rojo */
+.is-live .live-dot {
+  background: var(--live);
+}
+
+.btn.is-live {
+  border-color: var(--live);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .is-live .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--live);
+    animation: live-pulse 1.6s ease-out infinite;
+  }
+
+  @keyframes live-pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+
+    to {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
 }
 
 /* ---------- Fotos: a sangre, sin esquinas redondeadas ---------- */
