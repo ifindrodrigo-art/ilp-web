@@ -147,7 +147,7 @@ Botones y chips con radio de 14 px. Fotos, inputs y bloques con esquinas rectas.
 - **Formularios**: etiquetas en mayúsculas encima, inputs rectos con borde `border`, errores en `danger` debajo de cada campo.
 - **Pastor**: foto 4:5 a sangre, nombre en mayúsculas y cargo en gris. En Nosotros, con 7 pastores: 3 arriba más grandes y 4 abajo.
 - **En memoria** (pastor fundador Macario Mauricio): franja `tint`, foto 4:5 (el logo tenue hasta que se suba su foto desde Ajustes), etiqueta "En memoria", nombre grande, versículo en azul con línea fina arriba. Tono sobrio, sin fechas inventadas.
-- **Números**: franja en el azul del logo con cifras grandes livianas en blanco (años, ministerios, reuniones, pastores). Todas salen de los datos, ninguna se escribe a mano.
+- **Números**: franja en el azul del logo; a la izquierda "La iglesia en números" y un título, a la derecha una cuadrícula 2×2 con líneas finas: cifra grande liviana, etiqueta en mayúsculas y una frase corta. Todas las cifras salen de los datos.
 
 ## Motion
 
@@ -160,7 +160,7 @@ Librería: Motion (`motion/react`), cargada con `LazyMotion` + `domAnimation`. M
 - **Franja de fotos**: avanza sola muy despacio; se detiene al pasar el mouse, al enfocar con teclado y con el botón Pausar.
 - **Encabezados internos**: título por palabras y collage de 3 fotos que se descubren con cortina, se mueven a distinta velocidad al bajar y siguen un poco al mouse.
 - **Fotos**: se descubren con una cortina (clip-path) y un leve acercamiento al entrar en pantalla. El disparador es un contenedor sin recorte (Chrome no detecta un elemento con clip-path cerrado).
-- **Franjas de texto gigante**: palabras en contorno azul que se deslizan con el scroll y se inclinan según la velocidad. No se mueven solas.
+- **Franjas de texto gigante**: palabras sólidas que alternan azul y azul muy claro, separadas por una cruz fina, entre dos líneas finas. Se deslizan con el scroll y se inclinan apenas según la velocidad. No se mueven solas. Nada de texto en contorno: en la fuente variable dibuja líneas internas.
 - **Botones magnéticos** en las llamadas principales (solo con mouse).
 - **En vivo**: el botón "Cultos en vivo" se pone rojo (`--live` #E5252A, punto con pulso y borde) desde 5 min antes del inicio hasta el fin (o 2 h) de las reuniones marcadas "Se transmite en vivo" en Horarios. Se calcula en el navegador cada 30 s, en hora de Lima. El rojo solo se usa para esto.
 - **Galería**: riel de álbumes fijo que avanza de lado al bajar (escritorio; en celular se desliza con el dedo), mosaico con filtros animados (layout), cursor "Ver" y visor con deslizar, teclado y miniaturas.

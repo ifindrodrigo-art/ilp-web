@@ -27,7 +27,7 @@ export default async function Galeria() {
         images={[picks[1], picks[0], picks[3]].filter(Boolean).map((g) => ({ src: g.image_url, alt: g.caption || "Foto de la iglesia" }))}
       />
 
-      <VelocityText items={albums.slice(0, 8).map((a) => a.name)} tone="outline" />
+      <VelocityText items={albums.slice(0, 8).map((a) => a.name)} />
 
       {gallery.length === 0 ? (
         <section className="section container">

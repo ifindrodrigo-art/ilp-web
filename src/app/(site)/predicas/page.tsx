@@ -49,7 +49,7 @@ export default async function Predicas() {
         </div>
       </PageHead>
 
-      <VelocityText items={["En vivo cada domingo", ...sundays, "Martes de oración", "Iglesia Los Productores"]} tone="outline" />
+      <VelocityText items={["En vivo cada domingo", ...sundays, "Martes de oración", "Iglesia Los Productores"]} />
 
       <section className="section container" aria-label="Cultos">
         {sermons.length === 0 ? (

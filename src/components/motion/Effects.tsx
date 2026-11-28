@@ -93,21 +93,29 @@ export function Magnetic({ children, strength = 0.25 }: { children: React.ReactN
 /* Franja de texto grande que se desliza al bajar (ligada al scroll)    */
 /* y se inclina según la velocidad. No se mueve sola.                   */
 /* ------------------------------------------------------------------ */
-export function VelocityText({ items, reverse = false, tone = "ink" }: { items: string[]; reverse?: boolean; tone?: "ink" | "accent" | "outline" }) {
+export function VelocityText({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollY, scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const velocity = useVelocity(scrollY);
   const smooth = useSpring(velocity, { damping: 40, stiffness: 300 });
-  const skewX = useTransform(smooth, [-2000, 2000], reduce ? [0, 0] : [10, -10]);
-  const x = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : reverse ? ["-30%", "0%"] : ["0%", "-30%"]);
-  const line = items.join("  ·  ") + "  ·  ";
+  const skewX = useTransform(smooth, [-2500, 2500], reduce ? [0, 0] : [5, -5]);
+  const x = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : reverse ? ["-25%", "0%"] : ["0%", "-25%"]);
+  const run = (k: number) =>
+    items.map((t, i) => (
+      <span key={`${k}-${i}`} className="velocity-chunk">
+        <span className={`velocity-word ${(i + k) % 2 ? "is-soft" : ""}`}>{t}</span>
+        <svg className="velocity-sep" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v18M6 9h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+        </svg>
+      </span>
+    ));
   return (
-    <div ref={ref} className={`velocity velocity-${tone}`} aria-hidden="true">
+    <div ref={ref} className="velocity" aria-hidden="true">
       <m.div className="velocity-track" style={{ x, skewX }}>
-        {[0, 1, 2].map((i) => (
-          <span key={i}>{line}</span>
-        ))}
+        {run(0)}
+        {run(1)}
+        {run(0)}
       </m.div>
     </div>
   );

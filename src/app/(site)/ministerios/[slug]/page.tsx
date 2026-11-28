@@ -85,7 +85,7 @@ export default async function MinisterioPage({ params }: Props) {
         </div>
       </section>
 
-      <VelocityText items={[m.name, m.audience, m.tagline ?? "Iglesia Los Productores"]} tone="outline" />
+      <VelocityText items={[m.name, m.audience, m.tagline ?? "Iglesia Los Productores"]} />
 
       <section id="conoce" className="section container" aria-labelledby="t-conoce">
         <div className="split ministry-about">

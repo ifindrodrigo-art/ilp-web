@@ -27,11 +27,14 @@ export default async function Home() {
   const sundayText = sundays.length ? `Domingos ${sundays.map((s) => formatTime(s.start_time)).join(" y ")}` : null;
   const hasPhoto = Boolean(settings.hero_image_url);
 
+  const DAY_NAMES = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  const weekDays = [...new Set(weekly.map((s) => s.day))].sort((a, b) => ((a + 6) % 7) - ((b + 6) % 7)).map((d) => DAY_NAMES[d]);
+  const daysText = weekDays.length > 1 ? `${weekDays.slice(0, -1).join(", ")} y ${weekDays[weekDays.length - 1]}` : weekDays[0];
   const stats: Stat[] = [
-    { value: yearsSince("2004-02-27"), label: "años de historia" },
-    { value: c.ministries.length, label: "ministerios" },
-    { value: weekly.length, label: "reuniones cada semana" },
-    { value: c.team.length, label: "pastores" },
+    { value: yearsSince("2004-02-27"), label: "Años de historia", note: "Desde el 27 de febrero de 2004" },
+    { value: c.ministries.length, label: "Ministerios", note: "Un lugar para cada etapa de la vida" },
+    { value: weekly.length, label: "Reuniones cada semana", note: daysText ? daysText.charAt(0).toUpperCase() + daysText.slice(1) : undefined },
+    { value: c.team.length, label: "Pastores", note: "Un equipo al servicio de la iglesia" },
   ].filter((s) => s.value > 0);
 
   const leads = c.team.filter((t) => /principal/i.test(t.role ?? "")).slice(0, 2);
@@ -83,13 +86,17 @@ export default async function Home() {
 
       {stats.length > 1 && (
         <section className="stats-band" aria-labelledby="t-numeros">
-          <div className="container">
-            <Stats id="t-numeros" title="La iglesia en números" items={stats} />
+          <div className="container stats-layout">
+            <Reveal className="stack stats-intro" style={{ gap: 16 }}>
+              <span className="eyebrow">La iglesia en números</span>
+              <h2 id="t-numeros" className="h-md">Una familia que sigue creciendo desde 2004</h2>
+            </Reveal>
+            <Stats items={stats} />
           </div>
         </section>
       )}
 
-      <VelocityText items={["Más que una iglesia", "una familia", "Ate Vitarte", "Desde 2004"]} tone="outline" />
+      <VelocityText items={["Más que una iglesia", "una familia", "Ate Vitarte", "Desde 2004"]} />
 
       <section className="section container" aria-labelledby="t-nosotros">
         <div className="split">
@@ -168,7 +175,7 @@ export default async function Home() {
 
       {c.gallery.length >= 4 && (
         <section className="section" aria-labelledby="t-galeria">
-          <VelocityText items={["Congresos", "Campamentos", "Bautismos", "Cultos", "Familia"]} reverse tone="accent" />
+          <VelocityText items={["Congresos", "Campamentos", "Bautismos", "Cultos", "Familia"]} reverse />
           <Reveal className="container section-head">
             <div className="stack">
               <span className="eyebrow">Galería</span>

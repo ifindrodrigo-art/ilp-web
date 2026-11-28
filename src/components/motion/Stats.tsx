@@ -3,10 +3,10 @@
 import { animate, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-export type Stat = { value: number; label: string; prefix?: string };
+export type Stat = { value: number; label: string; note?: string };
 
 /** Número que cuenta desde 0 cuando aparece en pantalla. Sin JavaScript se ve el valor final. */
-function Counter({ value, prefix }: { value: number; prefix?: string }) {
+function Counter({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   const reduce = useReducedMotion();
@@ -35,31 +35,28 @@ function Counter({ value, prefix }: { value: number; prefix?: string }) {
 
   return (
     <span ref={ref} className="stat-value num">
-      {prefix}
       {shown}
     </span>
   );
 }
 
-export default function Stats({ items, title, id }: { items: Stat[]; title: string; id?: string }) {
+/** Cuadrícula de cifras con líneas finas entre celdas. El título de la sección va fuera. */
+export default function Stats({ items }: { items: Stat[] }) {
   return (
-    <div className="stats-grid">
-      <h2 id={id} className="sr-only">
-        {title}
-      </h2>
+    <ul className={`stats-grid stats-${items.length}`}>
       {items.map((s) => (
-        <div key={s.label} className="stat">
-          {/* Para lectores de pantalla: el valor final, sin la animación */}
+        <li key={s.label} className="stat">
+          {/* Para lectores de pantalla: la frase completa, sin la animación */}
           <span className="sr-only">
-            {s.prefix}
-            {s.value} {s.label}
+            {s.value} {s.label.toLowerCase()}.{s.note ? ` ${s.note}.` : ""}
           </span>
-          <span aria-hidden="true" className="stack" style={{ gap: 8 }}>
-            <Counter value={s.value} prefix={s.prefix} />
+          <span className="stat-visual" aria-hidden="true">
+            <Counter value={s.value} />
             <span className="stat-label">{s.label}</span>
+            {s.note && <span className="stat-note">{s.note}</span>}
           </span>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
