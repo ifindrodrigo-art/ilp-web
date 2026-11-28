@@ -36,7 +36,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     <MotionProvider>
       {/* Sin JavaScript, todo se ve de inmediato (las animaciones de entrada no corren) */}
       <noscript>
-        <style>{`[data-reveal],.word{opacity:1!important;transform:none!important}`}</style>
+        <style>{`[data-reveal],.word,.collage-frame,.collage-frame>div{opacity:1!important;transform:none!important;clip-path:none!important}`}</style>
       </noscript>
       <a href="#contenido" className="skip-link">
         Saltar al contenido

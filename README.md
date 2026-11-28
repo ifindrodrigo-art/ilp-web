@@ -63,6 +63,7 @@ Si la iglesia compra un dominio (por ejemplo `iglesialosproductores.com`), se co
 Cuando se agregan columnas o contenido nuevo a una web que ya está en línea, va un archivo aparte en `supabase/` que se corre una vez en Supabase → SQL Editor (no borra nada y se puede repetir):
 
 - `actualizacion-2026-11-22-fotos.sql`: pastores con foto, fotos de ministerios, 43 fotos de galería y la columna para la foto del pastor fundador.
+- `actualizacion-2026-11-28-videos-y-fotos.sql`: 16 cultos de YouTube, fotos de Teens, Varones y Familia, 64 fotos de Instagram y fechas de los álbumes.
 
 `schema.sql` es solo para un proyecto nuevo: borra y crea todo.
 

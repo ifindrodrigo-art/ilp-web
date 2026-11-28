@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import GalleryExplorer from "@/components/GalleryExplorer";
 import PageHead from "@/components/PageHead";
-import Gallery from "@/components/Gallery";
+import { VelocityText } from "@/components/motion/Effects";
 import { getContent } from "@/lib/content";
+import { albumsOf } from "@/lib/media";
 
 export const revalidate = 60;
 
@@ -13,13 +15,22 @@ export const metadata: Metadata = {
 
 export default async function Galeria() {
   const { gallery, settings } = await getContent();
-  const albums = [...new Set(gallery.map((g) => g.album || "Fotos de la iglesia"))];
+  const albums = albumsOf(gallery);
+  const picks = albums.slice(0, 6).map((a) => a.cover);
 
   return (
     <>
-      <PageHead eyebrow="Galería" title="Así vivimos la fe juntos" intro="Cultos, congresos, campamentos y momentos en familia." />
-      <section className="section container">
-        {gallery.length === 0 ? (
+      <PageHead
+        eyebrow="Galería"
+        title="Así vivimos la fe juntos"
+        intro={`${gallery.length} fotos en ${albums.length} álbumes: cultos, congresos, campamentos, bautismos y momentos en familia.`}
+        images={[picks[1], picks[0], picks[3]].filter(Boolean).map((g) => ({ src: g.image_url, alt: g.caption || "Foto de la iglesia" }))}
+      />
+
+      <VelocityText items={albums.slice(0, 8).map((a) => a.name)} tone="outline" />
+
+      {gallery.length === 0 ? (
+        <section className="section container">
           <div className="card empty">
             <h2 className="h-md">Pronto subiremos fotos</h2>
             <p className="muted">Mientras tanto, mira nuestras fotos más recientes en Instagram.</p>
@@ -29,17 +40,10 @@ export default async function Galeria() {
               </a>
             )}
           </div>
-        ) : (
-          <div className="stack" style={{ gap: 48 }}>
-            {albums.map((a) => (
-              <div key={a} className="stack" style={{ gap: 20 }}>
-                {albums.length > 1 && <h2 className="h-md">{a}</h2>}
-                <Gallery items={gallery.filter((g) => (g.album || "Fotos de la iglesia") === a)} />
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+        </section>
+      ) : (
+        <GalleryExplorer albums={albums} />
+      )}
     </>
   );
 }

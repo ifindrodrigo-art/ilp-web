@@ -158,7 +158,14 @@ Librería: Motion (`motion/react`), cargada con `LazyMotion` + `domAnimation`. M
 - **Al bajar**: secciones y tarjetas aparecen con fundido y subida corta, una sola vez. La línea de tiempo dibuja su línea de izquierda a derecha.
 - **Números**: cuentan desde 0 cuando aparecen.
 - **Franja de fotos**: avanza sola muy despacio; se detiene al pasar el mouse, al enfocar con teclado y con el botón Pausar.
-- **Accesibilidad**: con "reducir movimiento" no hay desplazamientos ni franja en movimiento (solo fundidos). Sin JavaScript todo se ve de inmediato. Lo de arriba de la pantalla nunca espera a JavaScript.
+- **Encabezados internos**: título por palabras y collage de 3 fotos que se descubren con cortina, se mueven a distinta velocidad al bajar y siguen un poco al mouse.
+- **Fotos**: se descubren con una cortina (clip-path) y un leve acercamiento al entrar en pantalla. El disparador es un contenedor sin recorte (Chrome no detecta un elemento con clip-path cerrado).
+- **Franjas de texto gigante**: palabras en contorno azul que se deslizan con el scroll y se inclinan según la velocidad. No se mueven solas.
+- **Botones magnéticos** en las llamadas principales (solo con mouse).
+- **Galería**: riel de álbumes fijo que avanza de lado al bajar (escritorio; en celular se desliza con el dedo), mosaico con filtros animados (layout), cursor "Ver" y visor con deslizar, teclado y miniaturas.
+- **Ministerio**: portada a sangre como la de Inicio, datos en tarjetas, tira de fotos arrastrable con barra de avance, video destacado y franja azul "Súmate".
+- **Prédicas**: reproductor grande; al elegir un culto pasa arriba con transición y empieza a sonar. Filtros por tipo.
+- **Accesibilidad**: con "reducir movimiento" no hay desplazamientos, ni riel fijo, ni franja en movimiento, ni cursor; las cortinas son instantáneas. Sin JavaScript todo se ve de inmediato. Lo de arriba de la pantalla nunca espera a JavaScript. Nada que dependa de "reducir movimiento" cambia el HTML (evita errores de hidratación).
 
 ## Imagery
 
@@ -168,8 +175,12 @@ Librería: Motion (`motion/react`), cargada con `LazyMotion` + `domAnimation`. M
   - `galeria/`: 43 fotos en álbumes (Vida de iglesia, Alabanza, Congreso juvenil, Congreso de Damas, Bautismo, Evangelismo, Misión Infantil, Dedicación de niños).
   - `historia/`: 11 fotos antiguas del archivo, sin bordes negros y sin enfocar de más (son de baja resolución: se muestran pequeñas).
   - Las 17 primeras, del Instagram de la iglesia, siguen en la raíz de `public/fotos`.
+  - `ig/<álbum>/`: 64 fotos de los Instagram de la iglesia y de Xtreme Teens (noviembre de 2026), máximo 1200 px.
+  - `fundador/`: retrato y 4 recuerdos del pastor Macario Mauricio y la pastora Zenovia Palacin.
+  - `portada-hd.webp`, `familia-abrazo-hd.webp` y `fundador/retrato.webp`: ampliadas con IA (Real-ESRGAN x4) a partir de las originales de baja resolución.
 - Logo: versión en azul oscuro sobre transparente (`public/logo.png`), hecha a partir del logo blanco de la iglesia. Si Comunicaciones tiene el archivo original en alta calidad o vectorial, se reemplaza.
-- Fotos con niños (Misión Infantil, Dedicación): publicadas por decisión de Comunicaciones; confirmar el permiso de los padres. Teens y Varones todavía no tienen foto.
+- Fotos con niños y adolescentes (Misión Infantil, FestiKids, Dedicación, Xtreme Teens): publicadas por decisión de Comunicaciones; confirmar el permiso de los padres.
+- Videos: los cultos salen del canal de YouTube (tabla `sermons`); los videos destacados por ministerio y los especiales están en `src/lib/media.ts`.
 - Las fotos subidas desde el panel se achican en el navegador (máximo 2000 px, WebP) antes de guardarse en Supabase.
 - WebP responsivas, con ancho y alto declarados y carga diferida fuera de la primera pantalla. Texto alternativo que describa la escena.
 

@@ -29,8 +29,12 @@ export const getContent = cache(async (): Promise<SiteContent> => {
   }
 
   const today = todayInLima();
+  const merged = { ...SEED.settings, ...(settings.data ?? {}) };
+  // La portada original se reemplazó por una versión en alta resolución (mismo encuadre).
+  if (merged.hero_image_url === "/fotos/portada.webp") merged.hero_image_url = "/fotos/portada-hd.webp";
+  if (merged.welcome_image_url === "/fotos/familia-abrazo.webp") merged.welcome_image_url = "/fotos/familia-abrazo-hd.webp";
   return {
-    settings: { ...SEED.settings, ...(settings.data ?? {}) },
+    settings: merged,
     schedules: schedules.data ?? [],
     events: events.data ?? [],
     ministries: ministries.data ?? [],

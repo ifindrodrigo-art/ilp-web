@@ -5,6 +5,7 @@ import { IconArrowDown } from "@/components/Icons";
 import { FeaturedEvent, FirstVisit, HowToGetThere, MinistryCard, ScheduleGrid } from "@/components/Sections";
 import { HeroMedia, HeroTitle } from "@/components/motion/Hero";
 import ParallaxPhoto from "@/components/motion/ParallaxPhoto";
+import { Magnetic, RevealPhoto, SplitHeading, VelocityText } from "@/components/motion/Effects";
 import PhotoMarquee from "@/components/motion/PhotoMarquee";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import Stats, { type Stat } from "@/components/motion/Stats";
@@ -43,9 +44,11 @@ export default async function Home() {
           <HeroTitle id="titulo-inicio" className="display" lines={["Más que una iglesia,", "una familia"]} />
           <p className="lead rise rise-2">Te esperamos en Ate Vitarte. Ven con los tuyos y trae un invitado.</p>
           <div className="btn-row rise rise-3">
-            <Link className={`btn ${hasPhoto ? "btn-light" : "btn-primary"}`} href="/visitanos">
-              Planea tu visita
-            </Link>
+            <Magnetic>
+              <Link className={`btn ${hasPhoto ? "btn-light" : "btn-primary"}`} href="/visitanos">
+                Planea tu visita
+              </Link>
+            </Magnetic>
             {settings.live_url && (
               <a className={`btn ${hasPhoto ? "btn-light" : "btn-ghost"}`} href={settings.live_url} target="_blank" rel="noopener noreferrer">
                 <span className="live-dot" aria-hidden="true" />
@@ -89,12 +92,14 @@ export default async function Home() {
         </section>
       )}
 
+      <VelocityText items={["Más que una iglesia", "una familia", "Ate Vitarte", "Desde 2004"]} tone="outline" />
+
       <section className="section container" aria-labelledby="t-nosotros">
         <div className="split">
           <ParallaxPhoto src={settings.welcome_image_url} alt="La iglesia Los Productores" />
           <Reveal className="stack" style={{ gap: 24 }}>
             <span className="eyebrow">Nosotros</span>
-            <h2 id="t-nosotros" className="h-lg">Transmitir vida a través de nuestra vida</h2>
+            <SplitHeading id="t-nosotros" className="h-lg" text="Transmitir vida a través de nuestra vida" />
             <p className="muted" style={{ maxWidth: 520 }}>
               Somos una iglesia de las Asambleas de Dios del Perú en Ate Vitarte, fundada por el pastor {FOUNDER.name} el 27 de febrero de 2004.
               Niños, adolescentes, jóvenes, damas, varones y familias: aquí hay un lugar para ti.
@@ -128,7 +133,7 @@ export default async function Home() {
               {pastors.map((p) => (
                 <RevealItem key={p.id}>
                   <figure className="pastor-card">
-                    <Photo src={p.image_url} alt={p.name} ratio="4 / 5" sizes="(max-width: 900px) 50vw, 25vw" />
+                    <RevealPhoto src={p.image_url} alt={p.name} ratio="4 / 5" sizes="(max-width: 900px) 50vw, 25vw" />
                     <figcaption>
                       <span className="h-sm">{p.name}</span>
                       {p.role && <span className="label">{p.role}</span>}
@@ -146,7 +151,7 @@ export default async function Home() {
           <Reveal className="section-head">
             <div className="stack">
               <span className="eyebrow">Ministerios</span>
-              <h2 id="t-ministerios" className="h-lg">Una familia, muchos ministerios</h2>
+              <SplitHeading id="t-ministerios" className="h-lg" text="Una familia, muchos ministerios" />
               <p className="muted">Encuentra tu lugar según tu edad y tu etapa.</p>
             </div>
             <Link href="/ministerios" className="text-link">Ver todos</Link>
@@ -166,10 +171,11 @@ export default async function Home() {
 
       {c.gallery.length >= 4 && (
         <section className="section" aria-labelledby="t-galeria">
+          <VelocityText items={["Congresos", "Campamentos", "Bautismos", "Cultos", "Familia"]} reverse tone="accent" />
           <Reveal className="container section-head">
             <div className="stack">
               <span className="eyebrow">Galería</span>
-              <h2 id="t-galeria" className="h-lg">Así vivimos la fe juntos</h2>
+              <SplitHeading id="t-galeria" className="h-lg" text="Así vivimos la fe juntos" />
             </div>
             <Link href="/galeria" className="text-link">Ver galería</Link>
           </Reveal>
@@ -189,12 +195,24 @@ export default async function Home() {
             )}
           </Reveal>
           <Reveal className="stack" style={{ gap: 20 }} delay={0.1}>
-            <span className="eyebrow">Prédicas</span>
+            <span className="eyebrow">{sermon ? "Último culto" : "Prédicas"}</span>
             <h2 id="t-predicas" className="h-lg">{sermon ? sermon.title : "¿Te perdiste el culto?"}</h2>
             <p className="muted">Cada domingo transmitimos en vivo por Facebook, y los cultos quedan en nuestro canal de YouTube.</p>
+            {c.sermons.length > 1 && (
+              <ul className="mini-list">
+                {c.sermons.slice(1, 4).map((s) => (
+                  <li key={s.id}>
+                    <Link href="/predicas">
+                      <span>{s.title}</span>
+                      {s.preached_on && <span className="label num">{s.preached_on.split("-").reverse().join("/")}</span>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="btn-row">
               <Link className="btn btn-primary" href="/predicas">
-                Ver prédicas
+                Ver todos los cultos
               </Link>
             </div>
           </Reveal>

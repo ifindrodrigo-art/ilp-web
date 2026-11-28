@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Photo from "./Photo";
 import { IconPin } from "./Icons";
+import { RevealPhoto } from "./motion/Effects";
 import { DAYS, capitalize, dayNumber, eventDateText, formatTime, monthName, whatsappLink } from "@/lib/format";
 import type { EventItem, Ministry, Schedule, Settings } from "@/lib/types";
 
@@ -94,7 +95,7 @@ export function EventRow({ event }: { event: EventItem }) {
 export function MinistryCard({ m }: { m: Ministry }) {
   return (
     <Link href={`/ministerios/${m.slug}`} className="card-link">
-      <Photo src={m.image_url} alt={`${m.name}, ${m.audience}`} ratio="4 / 5" sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw" />
+      <RevealPhoto src={m.image_url} alt={`${m.name}, ${m.audience}`} ratio="4 / 5" sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw" />
       <div className="ministry-body">
         <span className="eyebrow">{m.audience}</span>
         <span className="h-sm">{m.name}</span>

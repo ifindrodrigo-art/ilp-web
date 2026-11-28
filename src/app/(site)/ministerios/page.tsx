@@ -20,6 +20,11 @@ export default async function Ministerios() {
         eyebrow="Ministerios"
         title="Una familia, muchos ministerios"
         intro="Cada etapa de la vida tiene su espacio. Encuentra el tuyo y súmate."
+        images={[
+          { src: "/fotos/ministerios/jovenes.webp", alt: "Jóvenes adorando" },
+          { src: "/fotos/ministerios/teens.webp", alt: "Xtreme Teens en su campamento" },
+          { src: "/fotos/ig/festikids-2026/01.webp", alt: "Misión Infantil en el FestiKids" },
+        ]}
       />
       <section className="section container">
         <RevealGroup className="grid-3">

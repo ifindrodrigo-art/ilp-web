@@ -28,6 +28,11 @@ export default async function Contacto() {
         eyebrow="Contacto"
         title="Estamos para orar contigo"
         intro="Déjanos tu petición de oración. La reciben solo los pastores y el equipo de oración."
+        images={[
+          { src: "/fotos/ministerios/oracion.webp", alt: "Un pastor ora por un hermano" },
+          { src: "/fotos/ig/martes-de-oracion/02.webp", alt: "Una hermana en oración" },
+          { src: "/fotos/ig/ayuno-santa-cena-2026/01.webp", alt: "Hermanos orando juntos" },
+        ]}
       />
       <section className="section container">
         <div className="split" style={{ alignItems: "start" }}>

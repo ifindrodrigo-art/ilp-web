@@ -3,6 +3,7 @@ import Gallery from "@/components/Gallery";
 import Photo from "@/components/Photo";
 import PageHead from "@/components/PageHead";
 import { FirstVisit } from "@/components/Sections";
+import { RevealPhoto } from "@/components/motion/Effects";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import Timeline from "@/components/motion/Timeline";
 import { getContent } from "@/lib/content";
@@ -31,13 +32,23 @@ export default async function Nosotros() {
         eyebrow="Nosotros"
         title={MOTTO}
         intro="Somos la Iglesia Los Productores, una iglesia de las Asambleas de Dios del Perú (Región Lima Este) en Ate Vitarte. Desde el 27 de febrero de 2004 buscamos transmitir vida a través de nuestra vida."
+        images={[
+          { src: "/fotos/galeria/culto-interior.webp", alt: "Un domingo de culto en la iglesia" },
+          { src: "/fotos/historia/antigua-02.webp", alt: "La congregación en el primer local" },
+          { src: "/fotos/ig/aniversario-22/07.webp", alt: "La congregación en el aniversario 22" },
+        ]}
       />
 
       {/* En memoria del pastor fundador */}
       <section className="memorial" aria-labelledby="t-fundador">
         <div className="container memorial-inner">
           <Reveal className="memorial-photo">
-            <Photo src={settings.founder_image_url} alt={`Pastor ${FOUNDER.name}`} ratio="4 / 5" sizes="(max-width: 900px) 80vw, 380px" />
+            <RevealPhoto
+              src={settings.founder_image_url ?? FOUNDER.photo}
+              alt={`El pastor ${FOUNDER.name} junto a la pastora ${FOUNDER.wife}`}
+              ratio="4 / 5"
+              sizes="(max-width: 900px) 80vw, 380px"
+            />
           </Reveal>
           <Reveal className="stack memorial-text" delay={0.15}>
             <span className="eyebrow">En memoria</span>
@@ -55,6 +66,10 @@ export default async function Nosotros() {
               <p>“{FOUNDER.verse.text}”</p>
               <cite>{FOUNDER.verse.ref}</cite>
             </blockquote>
+            <div className="stack" style={{ gap: 12, marginTop: 8 }}>
+              <span className="label">Recuerdos</span>
+              <Gallery items={FOUNDER.memories} className="memorial-gallery" />
+            </div>
           </Reveal>
         </div>
       </section>
@@ -93,7 +108,7 @@ export default async function Nosotros() {
             {team.map((p, i) => (
               <RevealItem key={p.id} className={team.length % 4 === 3 && i < 3 ? "is-top" : undefined}>
                 <figure className="pastor-card">
-                  <Photo src={p.image_url} alt={p.name} ratio="4 / 5" sizes="(max-width: 600px) 50vw, (max-width: 960px) 33vw, 25vw" />
+                  <RevealPhoto src={p.image_url} alt={p.name} ratio="4 / 5" sizes="(max-width: 600px) 50vw, (max-width: 960px) 33vw, 25vw" delay={(i % 4) * 0.08} />
                   <figcaption>
                     <span className="h-sm">{p.name}</span>
                     {p.role && <span className="label">{p.role}</span>}

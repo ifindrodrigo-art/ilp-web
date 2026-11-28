@@ -35,6 +35,11 @@ export default async function Eventos() {
         eyebrow="Eventos"
         title="Lo que viene en la iglesia"
         intro="Casi cada mes tenemos un evento especial. Ven y trae un invitado."
+        images={[
+          { src: "/fotos/galeria/juvenil-grupo.webp", alt: "Congreso juvenil Íntimo y Eterno" },
+          { src: "/fotos/galeria/damas-congreso.webp", alt: "Congreso de Damas" },
+          { src: "/fotos/ig/aniversario-22/01.webp", alt: "Aniversario 22 de la iglesia" },
+        ]}
       />
       <section className="section container">
         {events.length === 0 ? (

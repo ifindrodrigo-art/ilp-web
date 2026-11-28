@@ -18,7 +18,7 @@ export default function VideoEmbed({ id, title }: { id: string; title: string })
         />
       ) : (
         <>
-          <Image src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" fill sizes="(max-width: 900px) 100vw, 60vw" />
+          <Image src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" fill sizes="(max-width: 900px) 100vw, 60vw" unoptimized />
           <button type="button" className="video-play" onClick={() => setPlay(true)} aria-label={`Reproducir: ${title}`}>
             <span>
               <IconPlay />

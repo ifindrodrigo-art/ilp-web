@@ -20,6 +20,11 @@ export default async function Visitanos() {
         eyebrow="Visítanos"
         title="Te esperamos este domingo"
         intro="Aquí tienes los horarios, cómo llegar y un formulario para avisarnos que vienes. Así te recibimos como familia."
+        images={[
+          { src: "/fotos/interior.webp", alt: "El local de la iglesia por dentro" },
+          { src: "/fotos/familia-abrazo-hd.webp", alt: "Hermanos abrazándose en el culto" },
+          { src: "/fotos/galeria/adoracion-hermanas.webp", alt: "Hermanas adorando" },
+        ]}
       />
 
       <section className="section container" aria-labelledby="t-horarios">
